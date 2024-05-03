@@ -12,13 +12,13 @@ export default function Cart() {
   return (
     <>
       <div
-        className={`h-screen w-screen absolute inset-0 bg-blue-500 bg-opacity-40 z-10 cursor-pointer ${
+        className={`h-screen w-screen overflow-y-hidden absolute inset-0 bg-blue-500 bg-opacity-40 z-10 cursor-pointer ${
           open ? "visible" : "invisible"
         }`}
         onClick={() => setOpen((prev) => !prev)}
       ></div>
       <div
-        className={`bg-stone-200 text-black absolute w-full  lg:left-2/3 lg:w-1/3 h-full inset-y-0 z-20 ${
+        className={`bg-stone-200 text-black overflow-y-hidden h-screen absolute w-full  lg:left-2/3 lg:w-1/3 inset-y-0 z-20 ${
           open ? "visible" : "invisible"
         }`}
       >

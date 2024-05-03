@@ -40,15 +40,15 @@ export const CartItem = ({ item }) => {
 const QuntitySelecter = ({ quantity, itemId }) => {
   const { updateItem } = useContext(CartContext);
   const inputRef = useRef(null);
-  const [selectedMore, setSelctedMore] = useState(false); // i want it false as a defult, and only when user choose "more" in the options, I want it to change to true.
+  const [selectedMore, setSelctedMore] = useState(false); // i want it false as a defult, and only when user choose "9+" in the options, I want it to change to true.
   const [inputFocus, setInputFocus] = useState(false);
   const [inputValue, setInputValue] = useState(quantity);
   const amounts =
     quantity > 9
-      ? [1, 2, 3, 4, 5, 6, 7, 8, 9, quantity, "more"]
-      : [1, 2, 3, 4, 5, 6, 7, 8, 9, "more"];
+      ? [1, 2, 3, 4, 5, 6, 7, 8, 9, quantity, "9+"]
+      : [1, 2, 3, 4, 5, 6, 7, 8, 9, "9+"];
 
-  // focus on the input when user select "more".
+  // focus on the input when user select "9+".
   useEffect(() => {
     inputRef.current.focus();
   }, [inputFocus]);
@@ -56,7 +56,7 @@ const QuntitySelecter = ({ quantity, itemId }) => {
   const handleSelectChange = (evt) => {
     const { value } = evt.target;
     value <= 9 && updateItem(itemId, value); // update item In case user select new item from the exsiting amounts array.
-    if (value === "more") {
+    if (value === "9+") {
       setSelctedMore(true);
       setInputFocus(true);
     }
@@ -74,10 +74,10 @@ const QuntitySelecter = ({ quantity, itemId }) => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex gap-1">
       <span>Q: </span>
       <select
-        className={`border-0 outline-none bg-transparent w-12 cursor-pointer ${
+        className={`selecter-prevent-defult border-0 outline-none bg-transparent text-black w-12 cursor-pointer ${
           selectedMore ? "hidden" : "inline-block"
         }`}
         value={quantity}
@@ -90,13 +90,13 @@ const QuntitySelecter = ({ quantity, itemId }) => {
         ))}
       </select>
       {/* typing castum amount */}
-      <form className="flex gap-1" onSubmit={handleUpdateForm}>
+      <form className="flex" onSubmit={handleUpdateForm}>
         <label htmlFor="quantity" />
         <input
           id="quantity"
           name="quantity"
           ref={inputRef}
-          className={`w-14 px-2 focus:outline-none bg-transparent focus:bg-white ${
+          className={`w-14 px-1 focus:outline-none bg-transparent focus:bg-white  ${
             selectedMore ? "inline-block " : "hidden"
           } `}
           onFocus={() => setInputFocus(true)}
@@ -109,9 +109,7 @@ const QuntitySelecter = ({ quantity, itemId }) => {
           value={inputValue}
         />
         <input
-          className={`cursor-pointer text-xs h-fit p-1 rounded-xl my-auto ${
-            selectedMore ? "inline-block" : "hidden"
-          } ${
+          className={`cursor-pointer text-xs h-fit p-1 rounded-xl my-auto hover:border-black hover:text-black duration-100 ${
             inputFocus
               ? "bg-sky-300 text-white"
               : "text-gray-400 border border-gray-300"
