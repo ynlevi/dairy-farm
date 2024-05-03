@@ -15,7 +15,6 @@
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.1.0",
-    "react-image-magnifiers": "^1.4.0",
     "swell-js": "^4.1.0"
   },
   "devDependencies": {
