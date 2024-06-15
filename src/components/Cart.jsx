@@ -1,5 +1,5 @@
 "use client";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Link from "next/link";
 import { CartContext } from "@/provider/cart-provider";
 import { TfiClose } from "react-icons/tfi";
@@ -8,6 +8,10 @@ import { CartItem } from "./CartItem";
 
 export default function Cart() {
   const { open, setOpen, cart, isLoading } = useContext(CartContext);
+
+  useEffect(() => {
+    console.log("cart", cart);
+  }, [cart]);
 
   return (
     <>
@@ -73,7 +77,7 @@ export default function Cart() {
               </div>
             </div>
             <Link
-              href={"/#"}
+              href={"/checkout"}
               className={`capitalize bg-blue-500 h-fit mt-auto px-3 text-white py-2 flex items-center gap-2 ${
                 (isLoading || cart === "isEmpty") &&
                 "bg-gray-300 pointer-events-none "

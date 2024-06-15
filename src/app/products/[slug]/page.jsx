@@ -1,8 +1,10 @@
-import Image from "next/image";
 import { getProductBySlug, getProductList } from "@/lib/swell/action";
-import AddToCart from "@/components/AddToCart";
+import AddToCart from "@/app/products/[slug]/components/AddToCart";
 import PopularProducts from "@/components/PopularProducts ";
-import { Carousel } from "@/components/Carousel";
+import QuntitySelecter from "./components/QuntitySelecter";
+import { Carousel } from "./components/Carousel";
+import Option from "./components/Option";
+
 export async function generateStaticParams() {
   const products = await getProductList();
   return products.map((product) => ({ slug: product.slug }));
@@ -11,22 +13,21 @@ export async function generateStaticParams() {
 export default async function Product({ params: { slug } }) {
   const product = await getProductBySlug(slug);
 
-  const imageUrl = product.images[0].file.url;
-  const { name, price, description } = product;
+  const { images } = product;
+
+  const { name, price, description, options } = product;
 
   return (
-    <div>
-      <div className="flex">
-        {/* <Image src={imageUrl} alt={`${slug}-image`} width={500} height={500} /> */}
-        <Carousel />
-        <div className="">
-          <h2 className="text-4xl font-thin">{name}</h2>
-          <h3
-            className="font-bold"
-            dangerouslySetInnerHTML={{ __html: description }}
-          />
-          <span>{price.toFixed(2) + "$"}</span>
-          <AddToCart item={product} />
+    <div className="">
+      <div className="flex flex-col lg:flex-row justify-between ">
+        <Carousel images={images} />
+        <div className=" my-auto pb-20 xs:pb-24 sm:pb-28 lg:pb-0 ">
+          <div className="font-thin flex flex-col">
+            <h2 className="text-4xl first-letter:-ml-1">{name}</h2>
+            <p className="text-xl mt-2">{`$${price.toFixed(2)}`}</p>
+            <h3 className="mt-1">{description}</h3>
+            <QuntitySelecter id={product.id} price={price} options={options} />
+          </div>
         </div>
       </div>
       <div>

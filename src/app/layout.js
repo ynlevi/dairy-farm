@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
         <CartProvider>
           <Cart />
           <Header />
-          <div className="mx-auto w-11/12 md:w-10/12 lg:w-9/12 xl:w-8/12 relative my-3">
+          <div className="mx-auto py-5 px-5 sm:px-20 lg:px-32 2xl:px-52 relative ">
             {children}
           </div>
         </CartProvider>

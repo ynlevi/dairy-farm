@@ -1,4 +1,7 @@
+// 1. fix problem of bg price on safari (both iphone and desktop)
+// 2. activate update btn when pressing.
 "use client";
+import { motion } from "framer-motion";
 import { useContext, useRef, useState, useEffect } from "react";
 import { CartContext } from "@/provider/cart-provider";
 import Image from "next/image";
@@ -8,13 +11,15 @@ export const CartItem = ({ item }) => {
     price,
     quantity,
     id,
+    options,
     product: { name, images, slug },
   } = item;
   return (
     <li className="flex justify-between border-r border-l-4 pl-2 border-blue-300 bg-gradient-to-l  from-blue-200 to-transparent  ">
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 py-2">
         <p className="">{name}</p>
         <QuntitySelecter itemId={id} quantity={quantity} />
+        <Options options={options} />
         <button
           className="text-gray-400 text-sm text-start"
           onClick={() => removeItem(id)}
@@ -22,7 +27,7 @@ export const CartItem = ({ item }) => {
           remove
         </button>
       </div>
-      <div className="relative h-28 w-1/2">
+      <div className="relative  w-1/2">
         <Image
           alt={slug}
           fill={true}
@@ -40,17 +45,20 @@ export const CartItem = ({ item }) => {
 const QuntitySelecter = ({ quantity, itemId }) => {
   const { updateItem } = useContext(CartContext);
   const inputRef = useRef(null);
+  const selectRef = useRef(null);
   const [selectedMore, setSelctedMore] = useState(false); // i want it false as a defult, and only when user choose "9+" in the options, I want it to change to true.
   const [inputFocus, setInputFocus] = useState(false);
   const [inputValue, setInputValue] = useState(quantity);
+  const [blur, setBlur] = useState(false);
   const amounts =
     quantity > 9
-      ? [1, 2, 3, 4, 5, 6, 7, 8, 9, quantity, "9+"]
-      : [1, 2, 3, 4, 5, 6, 7, 8, 9, "9+"];
+      ? [1, 2, 3, 4, 5, 6, 7, 8, quantity, "9+"]
+      : [1, 2, 3, 4, 5, 6, 7, 8, "9+"];
 
   // focus on the input when user select "9+".
   useEffect(() => {
-    inputRef.current.focus();
+    console.log("useeffect triggered foucs", inputFocus);
+    inputFocus && inputRef.current.focus();
   }, [inputFocus]);
 
   const handleSelectChange = (evt) => {
@@ -67,16 +75,21 @@ const QuntitySelecter = ({ quantity, itemId }) => {
     if (inputFocus) {
       updateItem(itemId, evt.target[0].value);
       setInputFocus(false);
+      setSelctedMore(false);
     } else {
-      inputRef.current.focus();
+      setSelctedMore(true);
       setInputFocus(true);
     }
   };
-
+  const handleBlur = () => {
+    inputRef.current.focus();
+    setSelctedMore(true);
+  };
   return (
     <div className="flex gap-1">
       <span>Q: </span>
       <select
+        ref={selectRef}
         className={`selecter-prevent-defult border-0 outline-none bg-transparent text-black w-12 cursor-pointer ${
           selectedMore ? "hidden" : "inline-block"
         }`}
@@ -92,14 +105,15 @@ const QuntitySelecter = ({ quantity, itemId }) => {
       {/* typing castum amount */}
       <form className="flex" onSubmit={handleUpdateForm}>
         <label htmlFor="quantity" />
-        <input
+        <motion.input
           id="quantity"
           name="quantity"
           ref={inputRef}
           className={`w-14 px-1 focus:outline-none bg-transparent focus:bg-white  ${
             selectedMore ? "inline-block " : "hidden"
           } `}
-          onFocus={() => setInputFocus(true)}
+          // onFocus={() => setInputFocus(true)}
+          onBlur={handleBlur}
           onChange={(e) => setInputValue(e.target.value)}
           inputMode="numeric"
           type="number"
@@ -119,5 +133,20 @@ const QuntitySelecter = ({ quantity, itemId }) => {
         />
       </form>
     </div>
+  );
+};
+
+const Options = ({ options }) => {
+  return (
+    <ul className="flex flex-col gap-1">
+      {options.map((option) => (
+        <li
+          className="flex flex-col gap-1 text-sm  w-fit p-1 bg-yellow-50"
+          key={option.id}
+        >
+          + {option.name}
+        </li>
+      ))}
+    </ul>
   );
 };

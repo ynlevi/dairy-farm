@@ -3,7 +3,7 @@ import CartButton from "./CartButton";
 
 export default function Header() {
   return (
-    <div className="flex justify-between bg-red-950">
+    <div className=" px-5 sm:px-20 lg:px-32 2xl:px-52 flex justify-between mx-auto bg-red-950 ">
       <Link href={"/"}>
         <h1>Header</h1>
       </Link>
