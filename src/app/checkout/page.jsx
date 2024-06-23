@@ -55,14 +55,14 @@ function page() {
     setOrderMethod(method);
     console.log(method);
   };
-  useEffect(() => {
-    async function initializePayment() {
-      const res = await fetch("/api/test");
-      const data = await res.json();
-      console.log(data, "get cart test");
-    }
-    initializePayment();
-  }, []);
+  // useEffect(() => {
+  //   async function initializePayment() {
+  //     const res = await fetch("/api/test");
+  //     const data = await res.json();
+  //     console.log(data, "get cart test");
+  //   }
+  //   initializePayment();
+  // }, []);
   return (
     <form className="" onSubmit={onSumbit}>
       <h2>check out</h2>
