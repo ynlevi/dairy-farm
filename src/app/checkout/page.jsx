@@ -27,7 +27,7 @@ function page() {
 
     try {
       const response = await fetch(
-        process.env.NEXT_PUBLIC_HOME_URL + "/api/update-cart",
+        "https://dairy-farm-three.vercel.app/api/update-cart",
         {
           method: "POST",
           headers: {
