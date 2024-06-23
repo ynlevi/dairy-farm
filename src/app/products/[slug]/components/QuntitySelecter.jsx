@@ -22,13 +22,9 @@ const QuntitySelecter = ({ id, price, options }) => {
   const [totalPrice, setTotalPrice] = useState(price);
   useEffect(() => {
     if (cart !== "isEmpty" && cart) {
-      cart.items.map((item) => {
-        if (item.productId === id) {
-          setNewQ(false);
-        }
-      });
+      cart.items.some((item) => item.productId === id);
     }
-  }, [cart]);
+  }, [cart, id]);
 
   const handleDivClick = () => {
     selectRef?.current.showPicker();

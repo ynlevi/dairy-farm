@@ -6,8 +6,14 @@ import { useState } from "react";
 
 export const CartContext = React.createContext();
 export const CartProvider = ({ children }) => {
-  const { cart, addItem, updateItem, removeItem, isLoading, getOrder, update } =
-    useCart();
+  const {
+    cart,
+    addItem,
+    updateItem,
+    removeItem,
+    isLoading,
+    updateAccountInfo,
+  } = useCart();
   const [open, setOpen] = useState(false);
 
   return (
@@ -20,8 +26,7 @@ export const CartProvider = ({ children }) => {
         addItem,
         updateItem,
         removeItem,
-        getOrder,
-        update,
+        updateAccountInfo,
       }}
     >
       {children}

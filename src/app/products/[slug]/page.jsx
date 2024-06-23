@@ -3,12 +3,14 @@ import AddToCart from "@/app/products/[slug]/components/AddToCart";
 import PopularProducts from "@/components/PopularProducts ";
 import QuntitySelecter from "./components/QuntitySelecter";
 import { Carousel } from "./components/Carousel";
+import { redirect } from "next/dist/server/api-utils";
 import Option from "./components/Option";
 
-export async function generateStaticParams() {
-  const products = await getProductList();
-  return products.map((product) => ({ slug: product.slug }));
-}
+// export async function generateStaticParams() {
+//   const products = await getProductList();
+//   console.log(products, "producttttttttttt");
+//   return products.map((product) => ({ slug: product.slug }));
+// }
 
 export default async function Product({ params: { slug } }) {
   const product = await getProductBySlug(slug);

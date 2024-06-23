@@ -27,12 +27,12 @@ export const useCart = () => {
     setLoading(false);
   };
 
-  const addItem = (id, quantity = 1, options) => {
+  const addItem = async (id, quantity = 1, options) => {
     const MAX_QUANTITY = 99;
     /// fire === should add new items
     let fire = false;
 
-    if (cart === "isEmpty" || !cart) {
+    if (cart === "isEmpty") {
       fire = true;
     } else {
       const item = cart.items.find((item) => item.productId === id);
@@ -46,7 +46,7 @@ export const useCart = () => {
       } else fire = true;
     }
     if (fire) {
-      console.log("add new item");
+      console.log("add new item", id, quantity);
       updateCart(
         swell.cart.addItem({
           productId: id,
@@ -70,12 +70,29 @@ export const useCart = () => {
     updateCart(swell.cart.removeItem(id));
   };
 
-  const update = (account) => {
-    updateCart(swell.cart.update({ account: account }));
+  const updateAccountInfo = (account) => {
+    // updateCart(swell.cart.update(account));
+    // updateCart(swell.cart.getOrder());
   };
-  const getOrder = (id) => {
-    updateCart(swell.cart.getOrder(id));
-  };
+
+  //post checkout
+
+  // const postOrder = async (accountId, items) => {
+  //   setLoading(true);
+  //   const order = await swell.post("/orders", {
+  //     accountId: accountId,
+  //     items: items,
+  //     // billing: {
+  //     //   ...
+  //     // },
+  //     // shipping: {
+  //     //   ...
+  //     // },
+  //     // coupon_code: "FREESHIPPING",
+  //   });
+  //   console.log("order", order);
+  //   setLoading(false);
+  // };
 
   return {
     cart,
@@ -84,7 +101,8 @@ export const useCart = () => {
     removeItem,
     isLoading,
     getCart,
-    update,
-    getOrder,
+    updateAccountInfo,
+    // update,
+    // getOrder,
   };
 };
