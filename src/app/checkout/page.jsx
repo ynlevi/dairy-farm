@@ -34,7 +34,10 @@ function page() {
         body: JSON.stringify(data),
       });
 
+      // [].message
       if (!response.ok) {
+        const { errors } = await response.json();
+        setErrorMessage(errors);
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
@@ -52,11 +55,21 @@ function page() {
     setOrderMethod(method);
     console.log(method);
   };
+  useEffect(() => {
+    async function initializePayment() {
+      const res = await fetch("/api/test");
+      const data = await res.json();
+      console.log(data, "get cart test");
+    }
+    initializePayment();
+  }, []);
   return (
     <form className="" onSubmit={onSumbit}>
       <h2>check out</h2>
       {errorMessage && (
-        <div className="text-sm text-red-500">{errorMessage}</div>
+        <div className="text-sm text-red-500">
+          {errorMessage.map((error) => error)}
+        </div>
       )}
       <div className="flex">
         <div className="flex flex-col">

@@ -12,6 +12,7 @@ export async function POST(req) {
         { status: 400 }
       );
     }
+
     const cart = await swell.put("/carts/{id}", {
       id: id,
       shipping: {
@@ -27,6 +28,15 @@ export async function POST(req) {
         email: email,
       },
     });
+    if (cart.errors) {
+      const messages = [];
+      for (const key in cart.errors) {
+        if (cart.errors[key].message) {
+          messages.push(cart.errors[key].message);
+        }
+      }
+      return NextResponse.json({ errors: messages }, { status: 400 });
+    }
     console.log("Updated cart:", cart);
 
     return NextResponse.json({ cart: cart }, { status: 200 });
