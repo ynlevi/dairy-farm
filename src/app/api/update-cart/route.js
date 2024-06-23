@@ -12,24 +12,24 @@ export async function POST(req) {
         { status: 400 }
       );
     }
-    const cart = await swell.put("/carts/{id}", {
-      id: id,
-      shipping: {
-        pickup: orderMethod,
-        country: "CA",
-        state: "QC",
-        city: "Montreal",
-      },
-      billing: {
-        name: name,
-      },
-      account: {
-        email: email,
-      },
-    });
-    console.log("Updated cart:", cart);
+    // const cart = await swell.put("/carts/{id}", {
+    //   id: id,
+    //   shipping: {
+    //     pickup: orderMethod,
+    //     country: "CA",
+    //     state: "QC",
+    //     city: "Montreal",
+    //   },
+    //   billing: {
+    //     name: name,
+    //   },
+    //   account: {
+    //     email: email,
+    //   },
+    // });
+    // console.log("Updated cart:", cart);
 
-    return NextResponse.json(data);
+    return NextResponse.json(body, "its all good");
     // return NextResponse.redirect(process.env.NEXT_PUBLIC_HOME_URL + "/payment");
   } catch (error) {
     console.error("Error processing request:", error);
