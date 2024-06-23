@@ -29,7 +29,7 @@ export async function POST(req) {
     // });
     // console.log("Updated cart:", cart);
 
-    return NextResponse.json(body, "its all good");
+    return NextResponse.json({ data: body }, { status: 200 });
     // return NextResponse.redirect(process.env.NEXT_PUBLIC_HOME_URL + "/payment");
   } catch (error) {
     console.error("Error processing request:", error);
