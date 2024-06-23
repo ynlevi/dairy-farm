@@ -44,6 +44,7 @@ function page() {
   };
 
   const handleOrderMethod = (method) => {
+    setErrorMessage(null);
     setOrderMethod(method);
     console.log(method);
   };
@@ -78,7 +79,16 @@ function page() {
           Delivery
         </button>
       </div>
-      <button type="submit">Submit</button>
+      <button
+        className={`p-3 ${
+          orderMethod && !errorMessage
+            ? " bg-blue-700"
+            : "cursor-not-allowed bg-blue-300"
+        }`}
+        type="submit"
+      >
+        Submit
+      </button>
     </form>
   );
 }
