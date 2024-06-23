@@ -7,7 +7,7 @@ const options = {
 
 swell.init(
   process.env.NEXT_PUBLIC_SWELL_STORE,
-  process.env.NEXT_PUBLIC_SWELL_PUBLIC_KEY,
+  process.env.NEXT_PUBLIC_SWELL_PUBLIC_API_KEY,
   options
 );
 export { swell };
