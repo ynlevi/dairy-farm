@@ -37,7 +37,11 @@ function page() {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      router.push(response.url);
+
+      const json = await response.json();
+      console.log(json);
+      // router.push(`/order/${json.data.checkoutId}`);
+      // router.push(response.url);
     } catch (e) {
       console.log(e);
     }
