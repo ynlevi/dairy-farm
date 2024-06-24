@@ -73,7 +73,7 @@ export default function page() {
       </Link> */}
       <button
         id="applepay-button"
-        // className="p-3 bg-white text-black align-text-bottom rounded-lg font-bold"
+        className="p-3 bg-white text-black align-text-bottom rounded-lg font-bold"
       >
         Apple Pay
       </button>
