@@ -36,7 +36,7 @@ function page() {
 
       if (response.status === 200) {
         console.log("come all the way here");
-        router.push(response.url);
+        router.push("/payment");
       } else {
         const { errors } = await response.json();
         setErrorMessage(errors);

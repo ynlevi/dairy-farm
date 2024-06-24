@@ -36,8 +36,12 @@ export async function POST(req) {
         }
       }
       if (messages.length === 1 && messages[0] === "Already exists") {
-        return NextResponse.redirect(
-          process.env.NEXT_PUBLIC_BASE_URL + "/payment"
+        // return NextResponse.redirect(
+        //   process.env.NEXT_PUBLIC_BASE_URL + "/payment"
+        // );
+        return NextResponse.json(
+          { message: "Cart updated successfully" },
+          { status: 200 }
         );
       }
       return NextResponse.json(
@@ -46,11 +50,11 @@ export async function POST(req) {
       );
     }
 
-    // return NextResponse.json(
-    //   { message: "Cart updated successfully" },
-    //   { status: 200 }
-    // );
-    return NextResponse.redirect(process.env.NEXT_PUBLIC_BASE_URL + "/payment");
+    return NextResponse.json(
+      { message: "Cart updated successfully" },
+      { status: 200 }
+    );
+    // return NextResponse.redirect(process.env.NEXT_PUBLIC_BASE_URL + "/payment");
   } catch (error) {
     console.error("Error processing request:", error);
     return NextResponse.json(
