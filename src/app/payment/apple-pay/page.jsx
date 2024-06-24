@@ -13,7 +13,7 @@ export default function page() {
         apple: {
           element_id: "applepay-button",
           style: {
-            theme: "black",
+            theme: "light-outline",
             type: "plain",
             width: "120px",
             height: "40px",
@@ -66,16 +66,13 @@ export default function page() {
     initializePayment();
   }, []);
   return (
-    <div className="bg-white">
+    <div className="bg-blue-200">
       {/* <Link href={"/"}>
         <div className="p-4 bg-white  text-black align-text-bottom rounded-lg font-bold">
           Credit / Debit Card
         </div>
       </Link> */}
-      <button
-        id="applepay-button"
-        className="p-3 bg-white text-black align-text-bottom rounded-lg font-bold"
-      ></button>
+      <button id="applepay-button"></button>
       {/* <button
         id="googlepay-button"
         className="p-3 bg-white text-black align-text-bottom rounded-lg font-bold"
