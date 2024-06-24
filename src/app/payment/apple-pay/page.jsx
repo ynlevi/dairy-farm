@@ -75,9 +75,7 @@ export default function page() {
       <button
         id="applepay-button"
         className="p-3 bg-white text-black align-text-bottom rounded-lg font-bold"
-      >
-        Apple Pay
-      </button>
+      ></button>
       {/* <button
         id="googlepay-button"
         className="p-3 bg-white text-black align-text-bottom rounded-lg font-bold"

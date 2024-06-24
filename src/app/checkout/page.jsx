@@ -6,7 +6,7 @@ import { CartContext } from "@/provider/cart-provider";
 
 function page() {
   const [errorMessage, setErrorMessage] = useState(null);
-  const [orderMethod, setOrderMethod] = useState(null);
+  const [isPickUp, setIsPickUp] = useState(true);
   const { cart } = useContext(CartContext);
   const router = useRouter();
 
@@ -14,15 +14,11 @@ function page() {
     evt.preventDefault();
     //make sure order methood is choosen
 
-    if (!orderMethod) {
-      setErrorMessage("Please choose order Method");
-    }
-
     const data = {
       name: evt.target.name.value,
       email: evt.target.email.value,
       id: cart.id,
-      orderMethod: orderMethod,
+      isPickUp: isPickUp,
     };
 
     try {
@@ -79,21 +75,23 @@ function page() {
       </div> */}
       </div>
       <div className="">
-        <button type="button" onClick={() => handleOrderMethod("pickup")}>
+        <button
+          className={`p-3 ${isPickUp ? "bg-blue-500" : "bg-gray-500"}`}
+          type="button"
+          onClick={() => setIsPickUp(true)}
+        >
           Pick Up
         </button>
-        <button type="button" onClick={() => handleOrderMethod("delivery")}>
+        <button
+          className={`p-3 ${isPickUp ? "bg-gray-500" : "bg-blue-500"}`}
+          type="button"
+          onClick={() => setIsPickUp(false)}
+        >
           Delivery
         </button>
       </div>
-      <button
-        className={`p-3 ${
-          orderMethod && !errorMessage
-            ? " bg-blue-700"
-            : "cursor-not-allowed bg-blue-300"
-        }`}
-        type="submit"
-      >
+
+      <button className="p-3" type="submit">
         Submit
       </button>
     </form>
