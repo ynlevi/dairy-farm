@@ -65,9 +65,9 @@ export default function page() {
       <button id="applepay-button" className="p-4">
         Apple Pay
       </button>
-      <button id="googlepay-button" className="p-4">
+      {/* <button id="googlepay-button" className="p-4">
         Google Pay
-      </button>
+      </button> */}
     </div>
   );
 }
