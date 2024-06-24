@@ -43,12 +43,6 @@ function page() {
     }
   };
 
-  const handleOrderMethod = (method) => {
-    setErrorMessage(null);
-    setOrderMethod(method);
-    console.log(method);
-  };
-
   return (
     <form className="" onSubmit={onSumbit}>
       <h2>check out</h2>

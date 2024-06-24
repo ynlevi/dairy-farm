@@ -6,7 +6,7 @@ export async function POST(req) {
     const body = await req.json();
     const { id, name, email, isPickUp } = body;
 
-    if (!name || !email || !id || !isPickUp) {
+    if (!name || !email || !id) {
       return NextResponse.json(
         { message: "Missing required fields" },
         { status: 400 }

@@ -12,13 +12,13 @@ export default function page() {
       await swell.payment.createElements({
         apple: {
           element_id: "applepay-button",
-          style: {
-            label: "Pay",
-            theme: "light-outline",
-            type: "default",
-            width: "120px",
-            height: "40px",
-          },
+          // style: {
+          //   label: "Pay",
+          //   theme: "light-outline",
+          //   type: "default",
+          //   width: "120px",
+          //   height: "40px",
+          // },
           require: {
             // Requested data in Apple Pay modal
             shipping: false, // Default: false
@@ -26,18 +26,20 @@ export default function page() {
             email: true, // Default: false
             phone: false, // Default: false
           },
-          classes: {
-            base: "<button-container-class>", // Optional, the base class applied to the container
-            // The following classes only work with Stripe Apple Pay
-            complete: "<button-complete-class>", // Optional, the class name to apply when the Element is complete
-            empty: "<button-empty-class>", // Optional, the class name to apply when the Element is empty
-            focus: "<button-focus-class>", // Optional, the class name to apply when the Element is focused
-            invalid: "<button-invalid-class>", // Optional, the class name to apply when the Element is invalid
-            webkitAutofill: "<button-webkit-autofill-class>", // Optional, the class name to apply when the Element has its value autofilled by the browser (only on Chrome and Safari)
-          },
+          // classes: {
+          //   base: "<button-container-class>", // Optional, the base class applied to the container
+          //   // The following classes only work with Stripe Apple Pay
+          //   complete: "<button-complete-class>", // Optional, the class name to apply when the Element is complete
+          //   empty: "<button-empty-class>", // Optional, the class name to apply when the Element is empty
+          //   focus: "<button-focus-class>", // Optional, the class name to apply when the Element is focused
+          //   invalid: "<button-invalid-class>", // Optional, the class name to apply when the Element is invalid
+          //   webkitAutofill: "<button-webkit-autofill-class>", // Optional, the class name to apply when the Element has its value autofilled by the browser (only on Chrome and Safari)
+          // },
           onSuccess: async () => {
-            // await swell.cart.submitOrder();
-            // cart && router.push(`/order/${cart.checkoutId}`);
+            const order = await swell.cart.submitOrder();
+
+            // router.push(`/order/${cart.checkoutId}`);
+            console.log("order", order);
             console.log("order sucess");
           },
           onError: (error) => {}, // Optional, called on payment error
