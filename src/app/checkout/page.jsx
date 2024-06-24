@@ -26,7 +26,7 @@ function page() {
     };
 
     try {
-      const res = await fetch("/api/update-cart", {
+      const response = await fetch("/api/update-cart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,13 +34,14 @@ function page() {
         body: JSON.stringify(data),
       });
 
-      const response = await res.json();
-      if (!response.ok) {
+      if (response.status === 200) {
+        console.log("come all the way here");
+        router.push(response.url);
+      } else {
         const { errors } = await response.json();
         setErrorMessage(errors);
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      router.push(process.env.NEXT_PUBLIC_BASE_URL + "/payment");
     } catch (e) {
       console.log(e);
     }

@@ -35,12 +35,22 @@ export async function POST(req) {
           messages.push(cart.errors[key].message);
         }
       }
-      return NextResponse.json({ errors: messages }, { status: 400 });
+      if (messages.length === 1 && messages[0] === "Already exists") {
+        return NextResponse.redirect(
+          process.env.NEXT_PUBLIC_BASE_URL + "/payment"
+        );
+      }
+      return NextResponse.json(
+        { cart: cart, errors: messages },
+        { status: 400 }
+      );
     }
-    console.log("Updated cart:", cart);
 
-    return NextResponse.json({ cart: cart }, { status: 200 });
-    // return NextResponse.redirect(process.env.NEXT_PUBLIC_BASE_URL + "/payment");
+    // return NextResponse.json(
+    //   { message: "Cart updated successfully" },
+    //   { status: 200 }
+    // );
+    return NextResponse.redirect(process.env.NEXT_PUBLIC_BASE_URL + "/payment");
   } catch (error) {
     console.error("Error processing request:", error);
     return NextResponse.json(
