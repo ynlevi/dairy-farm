@@ -9,6 +9,12 @@ export default function page() {
     const initializePayment = async () => {
       await swell.payment.createElements({
         apple: {
+          element_id: "applepay-button",
+          style: {
+            // theme: '<button-theme>', // Default: black
+            // type: '<button-type>' // Default: plain
+            height: "40px", // Default: 40px
+          },
           require: {
             // Requested data in Apple Pay modal
             shipping: false, // Default: false
@@ -57,7 +63,7 @@ export default function page() {
     initializePayment();
   }, []);
   return (
-    <div className=" gap-4 flex bg-slate-200">
+    <div className="bg-white">
       {/* <Link href={"/"}>
         <div className="p-4 bg-white  text-black align-text-bottom rounded-lg font-bold">
           Credit / Debit Card
