@@ -78,7 +78,7 @@ export default function page() {
     initializePayment();
   }, []);
   return (
-    <div className="">
+    <div className="bg-gray-300">
       <div id="applepay-button-container" className="bg-blue-100">
         {/* <Link href={"/"}>
         <div className="p-4 bg-white  text-black align-text-bottom rounded-lg font-bold">
