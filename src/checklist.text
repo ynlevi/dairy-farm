@@ -1,3 +1,4 @@
+- make shure what is the "already excist" error mean.
 - shipmentDelivery
 - remove header in checkout, payment, order
 - add taxs rate

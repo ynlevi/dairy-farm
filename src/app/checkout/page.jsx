@@ -40,8 +40,7 @@ function page() {
         setErrorMessage(errors);
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      console.log(response);
-      router.push(response.url);
+      router.push(process.env.NEXT_PUBLIC_BASE_URL + "/payment");
     } catch (e) {
       console.log(e);
     }
