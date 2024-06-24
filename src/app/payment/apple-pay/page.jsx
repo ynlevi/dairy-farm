@@ -37,7 +37,7 @@ export default function page() {
           // },
           onSuccess: async () => {
             const order = await swell.cart.submitOrder();
-            router.push(`/order/${cart.acountId}`);
+            router.push(`/order/${order.accountId}`);
           },
           onError: (error) => {}, // Optional, called on payment error
         },
