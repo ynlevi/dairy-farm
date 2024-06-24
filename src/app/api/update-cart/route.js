@@ -4,9 +4,9 @@ import { redirect } from "next/navigation";
 export async function POST(req) {
   try {
     const body = await req.json();
-    const { id, name, email, orderMethod } = body;
+    const { id, name, email, isPickUp } = body;
 
-    if (!name || !email || !id || !orderMethod) {
+    if (!name || !email || !id || !isPickUp) {
       return NextResponse.json(
         { message: "Missing required fields" },
         { status: 400 }
@@ -16,7 +16,7 @@ export async function POST(req) {
     const cart = await swell.put("/carts/{id}", {
       id: id,
       shipping: {
-        pickup: orderMethod,
+        pickup: isPickUp,
         country: "CA",
         state: "QC",
         city: "Montreal",

@@ -13,7 +13,7 @@ export default function page() {
         apple: {
           element_id: "applepay-button",
           style: {
-            theme: "whiteOutline",
+            theme: "black",
             type: "plain",
             width: "120px",
             height: "40px",
