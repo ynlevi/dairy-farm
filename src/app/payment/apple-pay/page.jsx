@@ -2,7 +2,7 @@
 import React, { useEffect, useContext } from "react";
 import { CartContext } from "@/provider/cart-provider";
 import { swell } from "@/lib/swell/client";
-import Link from "next/link";
+import { Link } from "next/link";
 export default function page() {
   const { cart } = useContext(CartContext);
   useEffect(() => {
@@ -33,13 +33,12 @@ export default function page() {
         },
 
         google: {
-          elementId: "<dom-element-id>", // Default: googlepay-button
-          locale: "<button-locale>", // Default: en
-          style: {
-            color: "<button-color>", // Default: black
-            type: "<button-type>", // Default: buy
-            sizeMode: "<button-size-mode>", // Default: fill
-          },
+          // locale: "<button-locale>", // Default: en
+          // style: {
+          //   color: "<button-color>", // Default: black
+          //   type: "<button-type>", // Default: buy
+          //   sizeMode: "<button-size-mode>", // Default: fill
+          // },
           require: {
             // Requested data in Google Pay modal
             shipping: true, // Default: false
@@ -58,14 +57,20 @@ export default function page() {
     initializePayment();
   }, []);
   return (
-    <div>
-      <Link>
+    <div className=" gap-4 flex">
+      {/* <Link href={"/"}>
         <div className="p-4 bg-blue-500">Credit / Debit Card</div>
-      </Link>
-      <button id="applepay-button" className="p-4">
+      </Link> */}
+      <button
+        id="applepay-button"
+        className="p-3 bg-white text-black align-text-bottom rounded-lg font-bold"
+      >
         Apple Pay
       </button>
-      {/* <button id="googlepay-button" className="p-4">
+      {/* <button
+        id="googlepay-button"
+        className="p-3 bg-white text-black align-text-bottom rounded-lg font-bold"
+      >
         Google Pay
       </button> */}
     </div>
