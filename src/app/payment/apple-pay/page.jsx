@@ -23,7 +23,6 @@ export default async function page() {
       onError: (error) => {}, // Optional, called on payment error
     },
   });
-  initializePayment();
 
   return (
     <div className="   p-4 ">
