@@ -7,6 +7,13 @@ import { useRouter } from "next/navigation";
 export default function page() {
   const { cart } = useContext(CartContext);
   const router = useRouter();
+  let checkoutId;
+  useEffect(() => {
+    if (cart) {
+      checkoutId = cart.checkoutId;
+    }
+  }, []);
+
   useEffect(() => {
     const initializePayment = async () => {
       await swell.payment.createElements({
@@ -36,8 +43,8 @@ export default function page() {
           //   webkitAutofill: "<button-webkit-autofill-class>", // Optional, the class name to apply when the Element has its value autofilled by the browser (only on Chrome and Safari)
           // },
           onSuccess: async () => {
-            const order = await swell.cart.submitOrder();
-            router.push(`/order/${order.accountId}`);
+            await swell.cart.submitOrder();
+            router.push(`/order/${checkoutId}`);
           },
           onError: (error) => {}, // Optional, called on payment error
         },

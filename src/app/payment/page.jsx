@@ -37,8 +37,9 @@ export default function Page() {
         onSuccess: async () => {
           setErrorMessage(null);
           //fire submit Order
-          await swell.cart.submitOrder();
-          router.push(`/order/${cart.checkoutId}`);
+          const order = await swell.cart.submitOrder();
+          console.log("the order is:", order);
+          // router.push(`/order/${cart.checkoutId}`);
         },
       },
     });
