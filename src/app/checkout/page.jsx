@@ -40,9 +40,7 @@ function page() {
         setErrorMessage(errors);
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
-      const json = await response.json();
-      console.log(json);
+      console.log(response);
       router.push(response.url);
     } catch (e) {
       console.log(e);
