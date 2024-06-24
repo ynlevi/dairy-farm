@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 export default function page() {
   const { cart } = useContext(CartContext);
   const router = useRouter();
+  const [order, setOrder] = useState(null);
   let checkoutId;
   useEffect(() => {
     if (cart) {
@@ -23,7 +24,7 @@ export default function page() {
             label: "Pay",
             theme: "light-outline",
             type: "default",
-            width: "120px",
+
             height: "40px",
           },
           require: {
@@ -43,10 +44,13 @@ export default function page() {
           //   webkitAutofill: "<button-webkit-autofill-class>", // Optional, the class name to apply when the Element has its value autofilled by the browser (only on Chrome and Safari)
           // },
           onSuccess: async () => {
-            await swell.cart.submitOrder();
-            router.push(`/order/${checkoutId}`);
+            const o = await swell.cart.submitOrder();
+            setOrder(o);
+            // router.push(`/order/${checkoutId}`);
           },
-          onError: (error) => {}, // Optional, called on payment error
+          onError: (error) => {
+            setOrder({ paid: false });
+          }, // Optional, called on payment error
         },
 
         // google: {
@@ -74,19 +78,37 @@ export default function page() {
     initializePayment();
   }, []);
   return (
-    <div className="applepay-button-container">
-      {/* <Link href={"/"}>
+    <div className="">
+      <div id="applepay-button-container" className="bg-blue-100">
+        {/* <Link href={"/"}>
         <div className="p-4 bg-white  text-black align-text-bottom rounded-lg font-bold">
           Credit / Debit Card
         </div>
       </Link> */}
-      <button id="applepay-button"></button>
-      {/* <button
+        <button id="applepay-button"></button>
+        {/* <button
         id="googlepay-button"
         className="p-3 bg-white text-black align-text-bottom rounded-lg font-bold"
       >
         Google Pay
       </button> */}
+      </div>
+      {order && (
+        <div className="">
+          <h2>order</h2>
+          {order.paid ? (
+            <div className="">
+              <h4>{`Thank you ${order.name}!`}</h4>
+              <p>{`Order No. ${order.number} has successfuly complate`}</p>
+            </div>
+          ) : (
+            <p className="text-red-500">
+              we are apologize, there was a problem with your order. please give
+              us a call
+            </p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
