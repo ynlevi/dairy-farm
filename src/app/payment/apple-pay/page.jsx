@@ -35,7 +35,7 @@ export default function page() {
           },
           onSuccess: async () => {
             await swell.cart.submitOrder();
-            router.push(`/order/${cart.checkoutId}`);
+            router.push(`/order/${cart?.checkoutId}`);
           }, // Optional, called on submit Apple Pay modal
           onError: (error) => {}, // Optional, called on payment error
         },
