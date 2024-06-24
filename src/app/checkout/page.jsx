@@ -43,8 +43,7 @@ function page() {
 
       const json = await response.json();
       console.log(json);
-      // router.push(`/order/${json.data.checkoutId}`);
-      // router.push(response.url);
+      router.push(response.url);
     } catch (e) {
       console.log(e);
     }
@@ -55,14 +54,7 @@ function page() {
     setOrderMethod(method);
     console.log(method);
   };
-  // useEffect(() => {
-  //   async function initializePayment() {
-  //     const res = await fetch("/api/test");
-  //     const data = await res.json();
-  //     console.log(data, "get cart test");
-  //   }
-  //   initializePayment();
-  // }, []);
+
   return (
     <form className="" onSubmit={onSumbit}>
       <h2>check out</h2>
