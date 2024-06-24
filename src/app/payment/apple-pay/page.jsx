@@ -15,7 +15,7 @@ export default function page() {
           style: {
             label: "Pay",
             theme: "light-outline",
-            type: "dark",
+            type: "default",
             width: "120px",
             height: "40px",
           },
