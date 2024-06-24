@@ -3,8 +3,10 @@ import React, { useEffect, useContext } from "react";
 import { CartContext } from "@/provider/cart-provider";
 import { swell } from "@/lib/swell/client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 export default function page() {
   const { cart } = useContext(CartContext);
+  const router = useRouter();
   useEffect(() => {
     const initializePayment = async () => {
       await swell.payment.createElements({
@@ -72,7 +74,9 @@ export default function page() {
       <button
         id="applepay-button"
         // className="p-3 bg-white text-black align-text-bottom rounded-lg font-bold"
-      ></button>
+      >
+        Apple Pay
+      </button>
       {/* <button
         id="googlepay-button"
         className="p-3 bg-white text-black align-text-bottom rounded-lg font-bold"
