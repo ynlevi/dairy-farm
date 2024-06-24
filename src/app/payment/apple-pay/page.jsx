@@ -13,9 +13,10 @@ export default function page() {
         apple: {
           element_id: "applepay-button",
           style: {
-            // theme: '<button-theme>', // Default: black
-            // type: '<button-type>' // Default: plain
-            height: "40px", // Default: 40px
+            theme: "whiteOutline",
+            type: "plain",
+            width: "120px",
+            height: "40px",
           },
           require: {
             // Requested data in Apple Pay modal
@@ -35,7 +36,7 @@ export default function page() {
           },
           onSuccess: async () => {
             await swell.cart.submitOrder();
-            router.push(`/order/${cart?.checkoutId}`);
+            cart && router.push(`/order/${cart.checkoutId}`);
           }, // Optional, called on submit Apple Pay modal
           onError: (error) => {}, // Optional, called on payment error
         },
