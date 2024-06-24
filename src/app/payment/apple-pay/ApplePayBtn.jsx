@@ -1,7 +1,9 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+import { CartContext } from "@/provider/cart-provider";
 import { swell } from "@/lib/swell/client";
 export default function page() {
+  const { cart } = useContext(CartContext);
   useEffect(() => {
     const initializePayment = async () => {
       await swell.payment.createElements({
@@ -22,7 +24,10 @@ export default function page() {
             invalid: "<button-invalid-class>", // Optional, the class name to apply when the Element is invalid
             webkitAutofill: "<button-webkit-autofill-class>", // Optional, the class name to apply when the Element has its value autofilled by the browser (only on Chrome and Safari)
           },
-          onSuccess: () => {}, // Optional, called on submit Apple Pay modal
+          onSuccess: async () => {
+            await swell.cart.submitOrder();
+            router.push(`/order/${cart.checkoutId}`);
+          }, // Optional, called on submit Apple Pay modal
           onError: (error) => {}, // Optional, called on payment error
         },
       });
@@ -31,9 +36,8 @@ export default function page() {
     initializePayment();
   }, []);
   return (
-    <div className=" bg-blue-200 p-4 ">
-      <button id="applepay-button"></button>
-      {/* <button onClick={submitPayment}>Pay Now</button> */}
-    </div>
+    <button id="applepay-button" className="p-4">
+      Apple Pay
+    </button>
   );
 }
