@@ -58,11 +58,11 @@ export default function page() {
   }, []);
   return (
     <div className=" gap-4 flex bg-slate-200">
-      <Link href={"/"}>
+      {/* <Link href={"/"}>
         <div className="p-4 bg-white  text-black align-text-bottom rounded-lg font-bold">
           Credit / Debit Card
         </div>
-      </Link>
+      </Link> */}
       <button
         id="applepay-button"
         // className="p-3 bg-white text-black align-text-bottom rounded-lg font-bold"
