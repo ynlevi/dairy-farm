@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { swell } from "@/lib/swell/client";
 export default async function page() {
   await swell.payment.createElements({
