@@ -12,13 +12,13 @@ export default function page() {
       await swell.payment.createElements({
         apple: {
           element_id: "applepay-button",
-          // style: {
-          //   label: "Pay",
-          //   theme: "light-outline",
-          //   type: "default",
-          //   width: "120px",
-          //   height: "40px",
-          // },
+          style: {
+            label: "Pay",
+            theme: "light-outline",
+            type: "dark",
+            width: "120px",
+            height: "40px",
+          },
           require: {
             // Requested data in Apple Pay modal
             shipping: false, // Default: false
@@ -37,10 +37,7 @@ export default function page() {
           // },
           onSuccess: async () => {
             const order = await swell.cart.submitOrder();
-
-            // router.push(`/order/${cart.checkoutId}`);
-            console.log("order", order);
-            console.log("order sucess");
+            router.push(`/order/${cart.acountId}`);
           },
           onError: (error) => {}, // Optional, called on payment error
         },
@@ -70,7 +67,7 @@ export default function page() {
     initializePayment();
   }, []);
   return (
-    <div className="bg-blue-200">
+    <div className="applepay-button-container">
       {/* <Link href={"/"}>
         <div className="p-4 bg-white  text-black align-text-bottom rounded-lg font-bold">
           Credit / Debit Card
