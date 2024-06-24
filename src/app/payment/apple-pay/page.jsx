@@ -13,6 +13,7 @@ export default function page() {
         apple: {
           element_id: "applepay-button",
           style: {
+            label: "Pay",
             theme: "light-outline",
             type: "default",
             width: "120px",
@@ -35,9 +36,10 @@ export default function page() {
             webkitAutofill: "<button-webkit-autofill-class>", // Optional, the class name to apply when the Element has its value autofilled by the browser (only on Chrome and Safari)
           },
           onSuccess: async () => {
-            await swell.cart.submitOrder();
-            cart && router.push(`/order/${cart.checkoutId}`);
-          }, // Optional, called on submit Apple Pay modal
+            // await swell.cart.submitOrder();
+            // cart && router.push(`/order/${cart.checkoutId}`);
+            console.log("order sucess");
+          },
           onError: (error) => {}, // Optional, called on payment error
         },
 
