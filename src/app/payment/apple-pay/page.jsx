@@ -2,7 +2,7 @@
 import React, { useEffect, useContext } from "react";
 import { CartContext } from "@/provider/cart-provider";
 import { swell } from "@/lib/swell/client";
-import { Link } from "next/link";
+import Link from "next/link";
 export default function page() {
   const { cart } = useContext(CartContext);
   useEffect(() => {
@@ -32,25 +32,25 @@ export default function page() {
           onError: (error) => {}, // Optional, called on payment error
         },
 
-        google: {
-          // locale: "<button-locale>", // Default: en
-          // style: {
-          //   color: "<button-color>", // Default: black
-          //   type: "<button-type>", // Default: buy
-          //   sizeMode: "<button-size-mode>", // Default: fill
-          // },
-          require: {
-            // Requested data in Google Pay modal
-            shipping: true, // Default: false
-            email: true, // Default: false
-            phone: true, // Default: false
-          },
-          classes: {
-            base: "<button-container-class>", // Optional, the base class applied to the container
-          },
-          onSuccess: () => {}, // Optional, called on submit Google Pay modal
-          onError: (error) => {}, // Optional, called on payment error
-        },
+        // google: {
+        //   // locale: "<button-locale>", // Default: en
+        //   // style: {
+        //   //   color: "<button-color>", // Default: black
+        //   //   type: "<button-type>", // Default: buy
+        //   //   sizeMode: "<button-size-mode>", // Default: fill
+        //   // },
+        //   require: {
+        //     // Requested data in Google Pay modal
+        //     shipping: true, // Default: false
+        //     email: true, // Default: false
+        //     phone: true, // Default: false
+        //   },
+        //   classes: {
+        //     base: "<button-container-class>", // Optional, the base class applied to the container
+        //   },
+        //   onSuccess: () => {}, // Optional, called on submit Google Pay modal
+        //   onError: (error) => {}, // Optional, called on payment error
+        // },
       });
     };
 
@@ -58,9 +58,11 @@ export default function page() {
   }, []);
   return (
     <div className=" gap-4 flex">
-      {/* <Link href={"/"}>
-        <div className="p-4 bg-blue-500">Credit / Debit Card</div>
-      </Link> */}
+      <Link href={"/"}>
+        <div className="p-4 bg-white  text-black align-text-bottom rounded-lg font-bold">
+          Credit / Debit Card
+        </div>
+      </Link>
       <button
         id="applepay-button"
         className="p-3 bg-white text-black align-text-bottom rounded-lg font-bold"
