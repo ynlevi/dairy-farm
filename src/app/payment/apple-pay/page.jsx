@@ -14,7 +14,7 @@ export default function page() {
           element_id: "applepay-button",
           style: {
             theme: "light-outline",
-            type: "plain",
+            type: "default",
             width: "120px",
             height: "40px",
           },
