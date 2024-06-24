@@ -26,7 +26,7 @@ function page() {
     };
 
     try {
-      const response = await fetch("/api/update-cart", {
+      const res = await fetch("/api/update-cart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +34,7 @@ function page() {
         body: JSON.stringify(data),
       });
 
-      // [].message
+      const response = await res.json();
       if (!response.ok) {
         const { errors } = await response.json();
         setErrorMessage(errors);
