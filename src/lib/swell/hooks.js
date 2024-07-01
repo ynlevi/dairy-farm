@@ -109,44 +109,6 @@ export const useCart = () => {
     updateCart(swell.cart.removeCoupon());
   };
 
-  //account
-  const login = async (email, pass) => {
-    setLoading(true);
-    const account = await swell.account.login(email, pass);
-    console.log("account ask to log in:", account);
-    getCart();
-    setLoading(false);
-    return account;
-  };
-  const logout = async () => {
-    await swell.account.logout();
-    getCart();
-  };
-
-  const recover = async (email) => {
-    const account = await swell.account.recover({
-      email,
-      resetUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/account/reset?key={reset_key}`,
-    });
-    getCart();
-
-    return account;
-  };
-  const signup = async (email, firstName, emailOptin = false, password) => {
-    const account = await swell.account.create({
-      email,
-      firstName,
-      emailOptin,
-      password,
-    });
-
-    if (account.errors) {
-      return null;
-    }
-    getCart();
-    return account;
-  };
-
   return {
     cart,
     addItem,
@@ -158,28 +120,88 @@ export const useCart = () => {
     removeGiftCard,
     addPromocode,
     removePromocode,
+  };
+};
+
+export const useAccount = () => {
+  const [account, setAccount] = useState(null);
+  const [isLoading, setLoading] = useState(true);
+
+  const getAccount = async () => {
+    setLoading(true);
+    const account = await swell.account.get();
+    if (!account) {
+      setLoading(false);
+      return;
+    }
+    setAccount(account);
+    setLoading(false);
+    return account;
+  };
+
+  //get account for the first time or if user refresh the page.
+  useEffect(() => {
+    getAccount();
+  }, []);
+  //account
+
+  const login = async (email, pass) => {
+    setLoading(true);
+    const account = await swell.account.login(email, pass);
+    if (account.errors || !account) {
+      setLoading(false);
+      return null;
+    }
+
+    setAccount(account);
+    setLoading(false);
+    return account;
+  };
+
+  const logout = async () => {
+    await swell.account.logout();
+    setAccount(null);
+  };
+
+  const recover = async (email) => {
+    setLoading(true);
+
+    const account = await swell.account.recover({
+      email,
+      resetUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/account/reset?key={reset_key}`,
+    });
+
+    if (account.errors) {
+      setLoading(false);
+      return null;
+    }
+    setAccount(account);
+    setLoading(false);
+    return account;
+  };
+  const signup = async (email, password, firstName, emailOptin = false) => {
+    const account = await swell.account.create({
+      email,
+      firstName,
+      emailOptin,
+      password,
+    });
+
+    if (account.errors) {
+      setLoading(false);
+      return null;
+    }
+    setAccount(account);
+    setLoading(false);
+    return account;
+  };
+  return {
+    isLoading,
+    account,
+    getAccount,
     login,
     logout,
     recover,
     signup,
   };
 };
-
-// export const useAccount = () => {
-//   const [account, setAccount] = useState(null);
-//   const [isLoading, setLoading] = useState(true);
-//   useEffect(() => {
-//     getAccount();
-//   }, []);
-//   const login = async () => {
-//     const account = await swell.account.login;
-//     setAccount(account);
-//     setLoading(false);
-//     return account;
-//   };
-//   return {
-//     account,
-//     isLoading,
-//     getAccount,
-//   };
-// };

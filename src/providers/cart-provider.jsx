@@ -17,10 +17,6 @@ export const CartProvider = ({ children }) => {
     removeGiftCard,
     addPromocode,
     removePromocode,
-    login,
-    logout,
-    recover,
-    signup,
   } = useCart();
   const [open, setOpen] = useState(false);
 
@@ -38,10 +34,6 @@ export const CartProvider = ({ children }) => {
         removeGiftCard,
         addPromocode,
         removePromocode,
-        login,
-        logout,
-        recover,
-        signup,
       }}
     >
       {children}

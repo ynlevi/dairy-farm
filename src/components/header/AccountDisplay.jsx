@@ -1,35 +1,30 @@
 "use client";
 import { useContext } from "react";
-import { CartContext } from "@/providers/cart-provider";
 import { VscAccount } from "react-icons/vsc";
 import { GoChevronDown } from "react-icons/go";
 import Link from "next/link";
+import { AccountContext } from "@/providers/account-provider";
 export default function AccountDisplay() {
-  const { cart, isLoading } = useContext(CartContext);
+  const { account, isLoading } = useContext(AccountContext);
+  console.log("account", account);
   return (
     <>
       {isLoading ? (
-        <div>Loading</div>
+        <div>...</div>
       ) : (
         <div className="capitalize h-fit my-auto">
-          {cart?.accountLoggedIn ? (
-            <ProfileButton cart={cart} />
-          ) : (
-            <SignupOrLogin />
-          )}
+          {account ? <ProfileButton account={account} /> : <SignupOrLogin />}
         </div>
       )}
     </>
   );
 }
 
-const ProfileButton = ({ cart }) => {
+const ProfileButton = ({ account }) => {
   return (
     <div className="rounded-full lg:rounded-none aspect-square lg:aspect-auto bg-gray-800 px-3 py-2 relative flex justify-center h-full gap-1 items-center ">
       <VscAccount />
-      <div className="hidden lg:inline-block text-sm ml-1">
-        {cart?.account.name}
-      </div>
+      <div className="hidden lg:inline-block text-sm ml-1">{account.name}</div>
       <GoChevronDown size={20} className="hidden lg:inline hover:rotate-180" />
     </div>
   );

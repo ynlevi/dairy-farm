@@ -1,22 +1,20 @@
 "use client";
 import { useContext, useRef, useState } from "react";
-import { CartContext } from "@/providers/cart-provider";
-import Link from "next/link";
 
 import { useRouter } from "next/navigation";
 import PasswordField from "../../../components/form/PasswordField";
 import EmailField from "../../../components/form/EmailField";
 import SubmitButton from "../../../components/form/SubmitButton";
 import ForgotButton from "../../../components/form/ForgotButton";
+import { AccountContext } from "@/providers/account-provider";
 export default function page() {
-  const { login, logout } = useContext(CartContext);
+  const { login, logout, isLoading } = useContext(AccountContext);
   const [errorMessage, setErrorMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (evt) => {
     evt.preventDefault();
-    setLoading(true);
+
     const email = evt.target.email.value;
     const password = evt.target.password.value;
 
@@ -25,7 +23,6 @@ export default function page() {
     if (!res) {
       evt.target.email.value = "";
       evt.target.password.value = "";
-      setLoading(false);
       setErrorMessage("Wrong email or password");
 
       return;
@@ -48,7 +45,7 @@ export default function page() {
       <form className="flex flex-col mt-3 gap-1 " onSubmit={handleLogin}>
         <EmailField />
         <PasswordField id={"password"} name={"Password"} />
-        <SubmitButton loading={loading} error={errorMessage}>
+        <SubmitButton isLoading={isLoading} error={errorMessage}>
           Log In
         </SubmitButton>
         <ForgotButton />

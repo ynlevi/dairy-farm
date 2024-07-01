@@ -15,7 +15,7 @@ import OrderSummary from "./components/OrderSummary";
 function page() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [isPickUp, setIsPickUp] = useState(true);
-  const [checkOutIsCompleted, setCheckOutIsCompleted] = useState(true);
+  const [checkOutIsCompleted, setCheckOutIsCompleted] = useState(false);
   const { cart, loading } = useContext(CartContext);
 
   const onSumbit = async (evt) => {

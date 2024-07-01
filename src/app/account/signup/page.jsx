@@ -1,6 +1,5 @@
 "use client";
 import { useContext, useRef, useState } from "react";
-import { CartContext } from "@/providers/cart-provider";
 
 import { useRouter } from "next/navigation";
 import PasswordField from "../../../components/form/PasswordField";
@@ -9,11 +8,12 @@ import SubmitButton from "../../../components/form/SubmitButton";
 import ForgotButton from "../../../components/form/ForgotButton";
 import isPasswordStrong from "@/functions/isPasswordStrong";
 import NameField from "../../../components/form/FNameField";
+import { AccountContext } from "@/providers/account-provider";
 
 export default function page() {
-  const { signup } = useContext(CartContext);
+  const { signup, isLoading } = useContext(AccountContext);
   const [errorMessage, setErrorMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
 
   const handleSignup = async (evt) => {
@@ -36,19 +36,17 @@ export default function page() {
       return;
     }
 
-    setLoading(true);
-
     const res = await signup(email, password, firstName, emailOptin);
     console.log(res, "res");
     if (!res) {
-      setLoading(false);
       setErrorMessage(
         "Unable to create account. It appears you may already have an account. Please try logging in instead."
       );
-
       return;
     }
+
     router.push("/");
+    return;
   };
 
   return (
@@ -72,7 +70,7 @@ export default function page() {
             and promotions.
           </label>
         </div>
-        <SubmitButton loading={loading} error={errorMessage}>
+        <SubmitButton loading={isLoading} error={errorMessage}>
           Sign Up
         </SubmitButton>
         <ForgotButton />

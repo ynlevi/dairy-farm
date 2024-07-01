@@ -1,28 +1,26 @@
 "use client";
 import { useContext, useState } from "react";
-import { CartContext } from "@/providers/cart-provider";
 
 import SubmitButton from "../../../components/form/SubmitButton";
 import EmailField from "../../../components/form/EmailField";
+import { AccountContext } from "@/providers/account-provider";
 
 export default function page() {
-  const [loading, setLoading] = useState(false);
-  const { recover } = useContext(CartContext);
+  const { recover, isLoading } = useContext(AccountContext);
 
   const [errorMessage, setErrorMessage] = useState(null);
   const [success, setSuccess] = useState(false);
   const handleRecover = async (evt) => {
     evt.preventDefault();
-    setLoading(true);
     const email = evt.target.email.value;
     const res = await recover(email);
     if (res.success === false) {
       setErrorMessage(res.message);
       evt.target.email.value = "";
-      setLoading(false);
+
       return;
     }
-    setLoading(false);
+
     setSuccess(true);
   };
 
@@ -38,21 +36,11 @@ export default function page() {
       ) : (
         <form className="flex flex-col mt-3 gap-1 " onSubmit={handleRecover}>
           <EmailField />
-          <SubmitButton loading={loading} error={errorMessage}>
+          <SubmitButton loading={isLoading} error={errorMessage}>
             Recover Password
           </SubmitButton>
         </form>
       )}
     </div>
   );
-}
-
-{
-  /* <div className="flex gap-2">
-          <input type="checkbox" id="emailOptin" />
-          <label className="text-sm text-gray-200 " htmlFor="emailOptin">
-            I would like to subscribe to the newsletter and get exclusive offers
-            and promotions.
-          </label>
-        </div> */
 }

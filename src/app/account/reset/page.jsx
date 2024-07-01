@@ -27,12 +27,26 @@ export default function page() {
       setErrorMessage("Passwords do not match");
       return;
     }
+
+    if (!resetKey) {
+      setErrorMessage("Invalid link.");
+      router.push("/account/recover");
+      return;
+    }
     setLoading(true);
-    await swell.account.recover({
+
+    const res = await swell.account.resetPassword({
       password: evt.target.password.value,
       resetKey,
     });
 
+    if (!res.success) {
+      setErrorMessage(res.message);
+      return;
+    }
+
+    setErrorMessage(null);
+    setLoading(false);
     router.push("/account/login");
   };
 
