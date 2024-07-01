@@ -1,7 +1,42 @@
+- how to combain giftcart and account credit
+- make a pop up message that incorage castumers to buy somthing alse when going to check out (a drink, a product in sall, etc.)
+- make a pop up message when castumer is just land in the website, and not loged in, incorage him to sigin up and get a copun code, or "buy 110$ in 100$" credits.
+- make sure the castumer won't use account credit to buy more account credits
+- add popular product page
+- in the payment component, if log in, should desplay the
+    credit balance, and also a link to page /account-credit with
+    the paramer of lasturl, to return stright to payment.
+- if gift_card_balance >= grand_total && gift_card is active (user add it to the checkout)
+    should {paymentWithoutCreditCard = true, buttontext: "pay With credit card balance"}
+    else if account_credit >= greand_toal
+    should {payWithoutCreditCard = true, button text: "Pay With Credit"
+    else should {payWithoutCreditCard = false, buttonText: "Pay Now}
+    
+- handle log-in when card === is empty
+- handle specific time for pick up
+- check if there is a עיגול אגורות in canada
+- make clear in the ui that in case there is a not enough credit,
+    the payment would be only the part that missing
+- handle taxs on pick up
+- build credit page on the client size only
+- in case accountCredit / giftCard >= total,
+    card filed should be gray, and cta buttom should handle 
+    submition directly without any payment. in case the user 
+    try to press on the credit card filed, alart should pop-up 
+    with the quetion "you have enough credit/giftcard balence. 
+    do you want to pay with credit card anywhay? in case true - 
+    should change the handler to handlePayment, and pay the credit
+    card filed shold invoke.
+- save card for future use.
+- implement date and hour for a pick up.
+- add promtioncode
+- prevent asking for a name and mail if alredy loogin (when prasing "check out")
+- add the ability to buy gift card and with better rate, and add to proifle credits.
+- try to make the password stronger buy providing conditions that otherwise won't gonna sign up a new password
 - fix payment pending in apple pay
+- fix button type apple pay
 - shipmentDelivery
-- remove header in checkout, payment, order
-- add taxs rate
+
 - style the pages: checkout, payment, order
 - castum mail that send to customers after order
 - add french

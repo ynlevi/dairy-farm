@@ -1,7 +1,7 @@
 import swell from "swell-js";
 
 const options = {
-  cache: false,
+  cache: true,
   useCamelCase: true,
 };
 

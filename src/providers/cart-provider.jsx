@@ -1,5 +1,6 @@
 "use client";
 
+import GiftCard from "@/app/checkout/components/GiftCard";
 import { useCart } from "@/lib/swell/hooks";
 import React from "react";
 import { useState } from "react";
@@ -12,7 +13,12 @@ export const CartProvider = ({ children }) => {
     updateItem,
     removeItem,
     isLoading,
-    updateAccountInfo,
+    addGiftCard,
+    removeGiftCard,
+    login,
+    logout,
+    recover,
+    signup,
   } = useCart();
   const [open, setOpen] = useState(false);
 
@@ -26,7 +32,12 @@ export const CartProvider = ({ children }) => {
         addItem,
         updateItem,
         removeItem,
-        updateAccountInfo,
+        addGiftCard,
+        removeGiftCard,
+        login,
+        logout,
+        recover,
+        signup,
       }}
     >
       {children}

@@ -3,8 +3,9 @@
 "use client";
 import { motion } from "framer-motion";
 import { useContext, useRef, useState, useEffect } from "react";
-import { CartContext } from "@/provider/cart-provider";
+import { CartContext } from "@/providers/cart-provider";
 import Image from "next/image";
+import Options from "../Options";
 export const CartItem = ({ item }) => {
   const { removeItem } = useContext(CartContext);
   const {
@@ -15,11 +16,11 @@ export const CartItem = ({ item }) => {
     product: { name, images, slug },
   } = item;
   return (
-    <li className="flex justify-between border-r border-l-4 pl-2 border-blue-300 bg-gradient-to-l  from-blue-200 to-transparent  ">
+    <li className="text-base flex justify-between border-r border-l-4 pl-2 border-white bg-gradient-to-l  from-white to-transparent  ">
       <div className="flex flex-col gap-2 py-2">
         <p className="">{name}</p>
         <QuntitySelecter itemId={id} quantity={quantity} />
-        <Options options={options} />
+        <Options options={options} className={"bg-white capitalize"} />
         <button
           className="text-gray-400 text-sm text-start"
           onClick={() => removeItem(id)}
@@ -27,14 +28,15 @@ export const CartItem = ({ item }) => {
           remove
         </button>
       </div>
-      <div className="relative  w-1/2">
+      <div className="relative w-32 aspect-square">
         <Image
           alt={slug}
           fill={true}
           src={images[0].file.url}
           className="object-cover"
+          sizes="12rem"
         />
-        <p className="relative top-[calc(100%-2.5rem)] text-base right-4 text-white backdrop-blur-lg px-2 py-1 inline-block rounded-full ">
+        <p className="relative font-normal top-[calc(100%-2.5rem)] text-base right-8 text-white backdrop-blur-sm px-2 py-1 inline-block rounded-full bg-blue-900 bg-opacity-20 ">
           ${price.toFixed(2)}
         </p>
       </div>
@@ -57,7 +59,6 @@ const QuntitySelecter = ({ quantity, itemId }) => {
 
   // focus on the input when user select "9+".
   useEffect(() => {
-    console.log("useeffect triggered foucs", inputFocus);
     inputFocus && inputRef.current.focus();
   }, [inputFocus]);
 
@@ -87,7 +88,7 @@ const QuntitySelecter = ({ quantity, itemId }) => {
   };
   return (
     <div className="flex gap-1">
-      <span>Q: </span>
+      <span>QTY: </span>
       <select
         ref={selectRef}
         className={`selecter-prevent-defult border-0 outline-none bg-transparent text-black w-12 cursor-pointer ${
@@ -133,20 +134,5 @@ const QuntitySelecter = ({ quantity, itemId }) => {
         />
       </form>
     </div>
-  );
-};
-
-const Options = ({ options }) => {
-  return (
-    <ul className="flex flex-col gap-1">
-      {options.map((option) => (
-        <li
-          className="flex flex-col gap-1 text-sm  w-fit p-1 bg-yellow-50"
-          key={option.id}
-        >
-          + {option.name}
-        </li>
-      ))}
-    </ul>
   );
 };

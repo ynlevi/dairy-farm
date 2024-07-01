@@ -6,16 +6,19 @@ export default async function page({ params: { slug } }) {
   const {
     number,
     paid,
-    billing: { name },
+    account: { name, balance },
   } = order;
   console.log(order);
   return (
     <div className="">
       <h2>order</h2>
       <div className="">
-        <h4>{`Thank you ${name}!`}</h4>
         {paid ? (
-          <p>{`Order No. ${number} has successfuly complate`}</p>
+          <div className="">
+            <h4>{`Thank you ${name}!`}</h4>
+            <p>{`Order No. ${number} has successfuly complate`}</p>
+            <p>{`Your current balance is $${balance.toFixed(2)}`}</p>
+          </div>
         ) : (
           <p className="text-red-500">
             we are apologize, there was a problem with your order. please give

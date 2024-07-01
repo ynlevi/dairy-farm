@@ -1,15 +1,13 @@
 "use client";
 import { useContext, useEffect } from "react";
 import Link from "next/link";
-import { CartContext } from "@/provider/cart-provider";
+import { CartContext } from "@/providers/cart-provider";
 import { TfiClose } from "react-icons/tfi";
 import { RxDoubleArrowRight } from "react-icons/rx";
 import { CartItem } from "./CartItem";
-// import { loadStripe } from "@stripe/stripe-js";
+import { useCycle, motion } from "framer-motion";
+import CartButton from "./CartButton";
 
-// const stripePromise = loadStripe(
-//   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-// );
 export default function Cart() {
   const { open, setOpen, cart, isLoading } = useContext(CartContext);
 
@@ -17,47 +15,46 @@ export default function Cart() {
     console.log("cart", cart);
   }, [cart]);
 
-  useEffect(() => console.log(isLoading), [isLoading]);
-
-  // const handleCheckout = async () => {
-  //   const response = await fetch("/api/checkout", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(cart.items),
-  //   });
-
-  //   if (response.status === 500) return;
-
-  //   const data = await response.json();
-  //   console.log("response", data);
-
-  //   // if (response.status === 500) return;
-
-  //   // const data = await response.json();
-
-  //   // stripe.redirectToCheckout({
-  //   //   sessionId: data.id,
-  //   // });
-  // };
+  const varients = {
+    open: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.3,
+      },
+    },
+    closed: {
+      x: "100%",
+      opacity: 0,
+      transition: {
+        duration: 0.3,
+      },
+    },
+  };
   return (
     <>
-      <div
-        className={`h-screen w-screen overflow-y-hidden absolute inset-0 bg-blue-500 bg-opacity-40 z-10 cursor-pointer ${
-          open ? "visible" : "invisible"
-        }`}
+      <CartButton />
+      <motion.div
+        variants={varients}
+        animate={open ? "open" : "closed"}
+        initial="closed"
+        className={`hidden h-screen w-screen fixed inset-0 bg-blue-500 bg-opacity-40 cursor-pointer z-20 
+          ${open && "lg:block"}`}
         onClick={() => setOpen((prev) => !prev)}
-      ></div>
-      <div
-        className={`bg-stone-200 text-black overflow-y-hidden h-screen absolute w-full  lg:left-2/3 lg:w-1/3 inset-y-0 z-20 ${
-          open ? "visible" : "invisible"
-        }`}
+      ></motion.div>
+      <motion.div
+        initial="closed"
+        className={`bg-purple-200 text-black h-screen fixed w-full inset-0 lg:left-2/3 lg:w-1/3 inset-y-0 z-30 `}
+        variants={varients}
+        animate={open ? "open" : "closed"}
       >
         <ul className="p-5 h-full text-lg font-thin flex flex-col justify-between  ">
           <li className="flex justify-between">
             <h2 className=" text-3xl">Your Cart</h2>
-            <button onClick={() => setOpen(false)}>
+            <button
+              className="z-10 relative"
+              onClick={() => setOpen((prev) => !prev)}
+            >
               <TfiClose size={30} />
             </button>
           </li>
@@ -101,7 +98,7 @@ export default function Cart() {
                 after taxs:<span className="text-gray-500">- -</span>
               </div>
             </div>
-            <Link href={"/checkout"}>
+            <Link onClick={() => setOpen(false)} href={"/checkout"}>
               <form
                 className={`capitalize bg-blue-500 h-fit mt-auto px-3 text-white py-2 flex items-center gap-2 ${
                   (isLoading || cart === "isEmpty") &&
@@ -114,7 +111,7 @@ export default function Cart() {
             </Link>
           </li>
         </ul>
-      </div>
+      </motion.div>
     </>
   );
 }

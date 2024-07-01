@@ -2,37 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer base {
+  html {
+    @apply font-sans;
+  }
+  body {
+    @apply text-white bg-black;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
+@layer components {
+  .btn {
+    @apply bg-purple-700 text-white px-3 py-1 rounded-md hover:bg-purple-800;
+  }
 
-/* reset defult  */
-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
+  .label-headr {
+    @apply text-xs font-bold whitespace-nowrap;
+  }
+  .header-sm {
+    @apply capitalize tracking-wide text-lg font-thin;
+  }
+  .header-lg {
+    @apply capitalize tracking-wide text-2xl font-bold;
+  }
+  .header-xl {
+    @apply capitalize tracking-wider text-3xl font-thin;
+  }
+  .header-2xl {
+    @apply capitalize tracking-wide text-5xl font-thin;
+  }
 
-select::-ms-expand {
-  display: none;
+  .products-grid {
+    @apply grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 lg:gap-4 h-fit w-full;
+  }
+
+  .layout {
+    @apply mx-auto px-4 sm:px-20 lg:px-32 2xl:px-52;
+  }
 }

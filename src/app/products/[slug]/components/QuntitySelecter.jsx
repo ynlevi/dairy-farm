@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useContext } from "react";
-import { CartContext } from "@/provider/cart-provider";
+import { CartContext } from "@/providers/cart-provider";
 import { useRef, useState, useEffect } from "react";
 import { SlArrowDown } from "react-icons/sl";
 import AddToCart from "./AddToCart";
@@ -58,13 +58,13 @@ const QuntitySelecter = ({ id, price, options }) => {
       ))}
       <div className="flex mt-3 gap-3 w-full">
         <div
-          className="flex gap-3 items-center border py-2 lg:py-3 w-1/2 cursor-pointer justify-center "
+          className=" flex gap-3 items-center border py-2 lg:py-3 w-1/2 cursor-pointer justify-center "
           onClick={handleDivClick}
         >
           <span>QTY: </span>
           <select
             ref={selectRef}
-            className={`border-0  outline-none w-fit cursor-pointer bg-black `}
+            className={`border-0 appearance-none outline-none w-fit cursor-pointer bg-black `}
             value={newQ ? newQ : 1}
             onChange={(e) => setNewQ(Number(e.target.value))}
           >

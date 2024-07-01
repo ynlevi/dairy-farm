@@ -12,11 +12,14 @@ export const useCart = () => {
 
   const getCart = async () => {
     const cart = await swell.cart.get();
+
     if (!cart || cart.itemQuantity === 0) {
       setCart("isEmpty");
-    } else {
-      setCart(cart);
+      setLoading(false);
+      return;
     }
+
+    setCart(cart);
     setLoading(false);
     return cart;
   };
@@ -70,29 +73,61 @@ export const useCart = () => {
     updateCart(swell.cart.removeItem(id));
   };
 
-  const updateAccountInfo = (account) => {
-    // updateCart(swell.cart.update(account));
-    // updateCart(swell.cart.getOrder());
+  const addGiftCard = async (giftcard) => {
+    setLoading(true);
+    try {
+      const cart = await swell.cart.applyGiftcard(giftcard);
+      setCart(cart);
+    } catch (err) {
+      setLoading(false);
+      return err.message;
+    }
+    setLoading(false);
+    return null;
+  };
+  const removeGiftCard = async (giftcard) => {
+    setLoading(true);
+    updateCart(swell.cart.removeGiftcard(giftcard));
+    getCart();
+    setLoading(false);
   };
 
-  //post checkout
+  const login = async (email, pass) => {
+    setLoading(true);
+    const account = await swell.account.login(email, pass);
+    console.log("account ask to log in:", account);
+    getCart();
+    setLoading(false);
+    return account;
+  };
+  const logout = async () => {
+    await swell.account.logout();
+    getCart();
+  };
 
-  // const postOrder = async (accountId, items) => {
-  //   setLoading(true);
-  //   const order = await swell.post("/orders", {
-  //     accountId: accountId,
-  //     items: items,
-  //     // billing: {
-  //     //   ...
-  //     // },
-  //     // shipping: {
-  //     //   ...
-  //     // },
-  //     // coupon_code: "FREESHIPPING",
-  //   });
-  //   console.log("order", order);
-  //   setLoading(false);
-  // };
+  const recover = async (email) => {
+    const account = await swell.account.recover({
+      email,
+      resetUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/account/reset?key={reset_key}`,
+    });
+    getCart();
+
+    return account;
+  };
+  const signup = async (email, firstName, emailOptin = false, password) => {
+    const account = await swell.account.create({
+      email,
+      firstName,
+      emailOptin,
+      password,
+    });
+
+    if (account.errors) {
+      return null;
+    }
+    getCart();
+    return account;
+  };
 
   return {
     cart,
@@ -101,8 +136,30 @@ export const useCart = () => {
     removeItem,
     isLoading,
     getCart,
-    updateAccountInfo,
-    // update,
-    // getOrder,
+    addGiftCard,
+    removeGiftCard,
+    login,
+    logout,
+    recover,
+    signup,
   };
 };
+
+// export const useAccount = () => {
+//   const [account, setAccount] = useState(null);
+//   const [isLoading, setLoading] = useState(true);
+//   useEffect(() => {
+//     getAccount();
+//   }, []);
+//   const login = async () => {
+//     const account = await swell.account.login;
+//     setAccount(account);
+//     setLoading(false);
+//     return account;
+//   };
+//   return {
+//     account,
+//     isLoading,
+//     getAccount,
+//   };
+// };
