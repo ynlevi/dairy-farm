@@ -36,12 +36,12 @@ const ProfileButton = ({ cart }) => {
 };
 const SignupOrLogin = () => {
   return (
-    <div className="tracking-wide flex flex-row gap-3 text-sm font-bold items-center ">
+    <div className="tracking-wide flex flex-row gap-1 lg:gap-3 text-xs lg:text-sm font-bold items-center ">
       <Link href={"/account/login"}>
         <p>Log In</p>
       </Link>
       <Link href={"/account/signup"}>
-        <p className="border p-3 border-purple-300">Sign Up</p>
+        <p className="border p-1 lg:p-3 border-purple-300">Sign Up</p>
       </Link>
     </div>
   );

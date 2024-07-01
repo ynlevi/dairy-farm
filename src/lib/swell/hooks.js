@@ -13,7 +13,7 @@ export const useCart = () => {
   const getCart = async () => {
     const cart = await swell.cart.get();
 
-    if (!cart || cart.itemQuantity === 0) {
+    if (!cart) {
       setCart("isEmpty");
       setLoading(false);
       return;

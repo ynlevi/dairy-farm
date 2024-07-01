@@ -29,7 +29,7 @@ export default function Header() {
           </Link>
         ))}
       </nav>
-      <div className="flex gap-4">
+      <div className="flex gap-2 lg:gap-4">
         <AccountDisplay />
         <Cart />
         <Menu pathname={pathname} nav={nav} />
