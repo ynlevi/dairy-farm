@@ -4,10 +4,10 @@ import AccountDisplay from "./AccountDisplay";
 import { usePathname } from "next/navigation";
 import Cart from "../cart/Cart";
 import Menu from "./Menu";
+import { useEffect } from "react";
 
 export default function Header() {
-  const pathname = usePathname();
-
+  const pathname = "/" + usePathname().split("/")[1];
   return (
     <div className="sticky top-0 z-20 bg-black layout flex justify-between items-center">
       <Link href={"/"}>

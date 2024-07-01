@@ -92,6 +92,24 @@ export const useCart = () => {
     setLoading(false);
   };
 
+  const addPromocode = async (promocode) => {
+    setLoading(true);
+    try {
+      const cart = await swell.cart.applyCoupon(promocode);
+      setCart(cart);
+    } catch (err) {
+      setLoading(false);
+      return err.message;
+    }
+    setLoading(false);
+    return null;
+  };
+
+  const removePromocode = async () => {
+    updateCart(swell.cart.removeCoupon());
+  };
+
+  //account
   const login = async (email, pass) => {
     setLoading(true);
     const account = await swell.account.login(email, pass);
@@ -138,6 +156,8 @@ export const useCart = () => {
     getCart,
     addGiftCard,
     removeGiftCard,
+    addPromocode,
+    removePromocode,
     login,
     logout,
     recover,

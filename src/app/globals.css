@@ -22,6 +22,9 @@
   .header-sm {
     @apply capitalize tracking-wide text-lg font-thin;
   }
+  .header-md {
+    @apply capitalize tracking-wide text-2xl font-bold;
+  }
   .header-lg {
     @apply capitalize tracking-wide text-2xl font-bold;
   }
@@ -29,7 +32,14 @@
     @apply capitalize tracking-wider text-3xl font-thin;
   }
   .header-2xl {
-    @apply capitalize tracking-wide text-5xl font-thin;
+    @apply capitalize tracking-wide text-4xl font-thin;
+  }
+
+  .header-3xl {
+    @apply capitalize tracking-wider text-5xl font-thin;
+  }
+  .header-4xl {
+    @apply capitalize tracking-wider  text-3xl lg:text-5xl font-bold;
   }
 
   .products-grid {

@@ -13,8 +13,8 @@ export default function AccountCredit() {
       <label className="label-headr" htmlFor="accountCredit">
         Account Credit
       </label>
-      <div className="flex justify-between mt-2">
-        <div className=" p-4 border-4 bg-yellow-100 border-yellow-300 rounded-3xl w-6/12">
+      <div className="flex flex-col gap-2 lg:flex-row justify-between mt-2">
+        <div className=" p-4 border-4 bg-yellow-100 border-yellow-300 rounded-3xl lg:w-6/12">
           <p className="capitalize text-lg">credit balance: </p>
           <p
             className={`text-2xl ${

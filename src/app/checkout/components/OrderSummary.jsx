@@ -5,7 +5,8 @@ import { CartContext } from "@/providers/cart-provider";
 import Options from "../../../components/Options";
 
 export default function OrderSummary() {
-  const { cart, isLoading, removeGiftCard } = useContext(CartContext);
+  const { cart, isLoading, removeGiftCard, removePromocode } =
+    useContext(CartContext);
 
   return (
     <div className="lg:w-1/2 bg-gray-900 p-4 capitalize">
@@ -14,7 +15,7 @@ export default function OrderSummary() {
       ) : (
         <div className="">
           <h3 className="text-3xl capitalize font-thin">Order Summary</h3>
-          <h4 className=" tracking-wide text-lg font-thin mt-4">{"Items"}</h4>
+          <h4 className="tracking-wide text-lg font-thin mt-4">Items</h4>
           <ul className="flex divide-y flex-col divide-gray-600">
             {cart?.items.map((item) => (
               <li
@@ -53,25 +54,55 @@ export default function OrderSummary() {
                 {cart?.giftcards?.map(({ last4, amount, id }) => (
                   <li
                     key={id}
-                    className="w-full bg-gray-800 grid grid-cols-5 gap-4 justify-center border border-green-500 p-2 text-sm"
+                    className="w-full bg-gray-800 flex justify-between gap-4 border border-green-500 p-2 text-sm"
                   >
-                    <div className="text-gray-300 col-span-2">
-                      {"XXXX XXXX "}
+                    <div className="text-gray-300 max-w-1/4 ">
+                      {"XXXX "}
                       {last4}
                     </div>
                     <div className="text-green-500">
-                      {" "}
                       {"$" + amount.toFixed(2)}
                     </div>
                     <div className="text-green-500">Applied</div>
                     <button
                       onClick={() => removeGiftCard(id)}
-                      className="bg-slate-700 text-gray-300 text-xs px-1"
+                      className="bg-slate-700 text-gray-300 text-xs p-1 h-fit my-auto"
                     >
                       Remove
                     </button>
                   </li>
                 ))}
+              </ul>
+            </div>
+          )}
+          {cart?.discounts?.length > 0 && (
+            <div className="">
+              <h4 className="header-sm">Promo Code</h4>
+              <ul>
+                {cart?.discounts?.map(
+                  ({ id, amount, rule: { valuePercent, valueType } }) => (
+                    <li
+                      key={id}
+                      className="w-full bg-gray-800 grid grid-cols-4 gap-4 justify-center border border-green-500 p-2 text-sm"
+                    >
+                      {valueType === "percent" && (
+                        <div className="text-gray-300 ">
+                          {`- ${valuePercent}%`}
+                        </div>
+                      )}
+                      <div className="text-green-500">
+                        {"-$" + amount.toFixed(2)}
+                      </div>
+                      <div className="text-green-500">Applied</div>
+                      <button
+                        onClick={() => removePromocode(id)}
+                        className="bg-slate-700 text-gray-300 text-xs p-1"
+                      >
+                        Remove
+                      </button>
+                    </li>
+                  )
+                )}
               </ul>
             </div>
           )}

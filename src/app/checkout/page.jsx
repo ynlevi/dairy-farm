@@ -15,7 +15,7 @@ import OrderSummary from "./components/OrderSummary";
 function page() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [isPickUp, setIsPickUp] = useState(true);
-  const [checkOutIsCompleted, setCheckOutIsCompleted] = useState(false);
+  const [checkOutIsCompleted, setCheckOutIsCompleted] = useState(true);
   const { cart, loading } = useContext(CartContext);
 
   const onSumbit = async (evt) => {
@@ -59,7 +59,7 @@ function page() {
   };
 
   return (
-    <div className="flex gap-4 flex-col lg:flex-row ">
+    <div className="flex gap-4 flex-col-reverse lg:flex-row ">
       {checkOutIsCompleted ? (
         <PaymentProvider>
           <Payment />
