@@ -15,11 +15,11 @@ export default function Product({ product: { name, images, price, slug } }) {
       <motion.div
         onHoverStart={() => setIsHover(true)}
         onHoverEnd={() => setIsHover(false)}
-        className="bg-[#FFF4A3]  text-black "
+        className="bg-[#FFDE95]  text-black "
       >
         <div className="relative pt-5 pb-10 ">
           <h4 className="capitalize text-lg absolute z-[1] px-5">
-            <span className="bg-[#FFF4A3]">{name}</span>
+            <span className="bg-[#FFDE95]">{name}</span>
           </h4>
         </div>
         <div className="flex justify-between items-center ">
@@ -33,7 +33,7 @@ export default function Product({ product: { name, images, price, slug } }) {
           </div>
           <div
             className={`${
-              isHover ? "border-purple-400" : "border-[#FFF4A3] "
+              isHover ? "border-purple-400" : "border-[#FFDE95] "
             } duration-200 overflow-hidden relative w-7/12 aspect-[4/3] rounded-tl-[66px] lg:border-t-4 lg:border-l-4 `}
           >
             <Image

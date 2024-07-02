@@ -34,17 +34,21 @@ export default function page() {
       return;
     }
     setLoading(true);
-
-    const res = await swell.account.resetPassword({
-      password: evt.target.password.value,
-      resetKey,
-    });
+    console.log(resetKey, evt.target.password.value);
+    try {
+      const res = await swell.account.recover({
+        password: evt.target.password.value,
+        resetKey: resetKey,
+      });
+      console.log(res, "res");
+    } catch (error) {
+      console.log(error);
+    }
 
     if (!res.success) {
       setErrorMessage(res.message);
       return;
     }
-
     setErrorMessage(null);
     setLoading(false);
     router.push("/account/login");

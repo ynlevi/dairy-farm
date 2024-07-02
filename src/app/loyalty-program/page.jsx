@@ -25,7 +25,7 @@ export default function page() {
 
       <div className="max-w-lg mx-auto bg-white text-black p-6 lg:p-10 mt-10">
         <h3 className="text-xl font-bold">Your Money Worth More.</h3>
-        <ul className="flex flex-col gap-2">
+        <ul className="flex flex-col gap-2 mt-5">
           {features.map((feature, index) => (
             <li key={index} className="flex ">
               <FaRegCheckCircle className="text-yellow-500 text-md aspect-square mt-1 absolute" />
